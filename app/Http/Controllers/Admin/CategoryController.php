@@ -4,12 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Post;
-use App\Models\Category;
 
-
-class PostController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return view('admin.posts.index', compact("posts"));
+        //
     }
 
     /**
@@ -46,13 +41,12 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Post $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        // $categories = Category::where);
-        return view("admin.posts.show", compact("post"));
+        //
     }
 
     /**

@@ -24,6 +24,8 @@ Route::get('/home', 'Admin\HomeController@index')->name('home');
 Route::middleware("auth")->namespace("Admin")->prefix("admin")->name("admin.")->group(function(){
     Route::get("/", "HomeController@index")->name("home"); // Homepage solo per utenti registrati
     Route::resource("posts", "PostController");
+    Route::resource("categories", "CategoryController");
+
 });
 
 Route::get("/{any}", "Guest\HomeController@index")->where("any", ".*");

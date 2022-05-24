@@ -13,6 +13,12 @@
                 <h3>
                     {{ $post->created_at }}
                 </h3>
+                <h3>
+                    Categorie:
+                    @foreach ($post->categories as $category)
+                        <span>{{ $category->name }}</span>
+                    @endforeach
+                </h3>
             </div>
             <div class="col-12 mb-2">
                 <img src="{{ $post->image_url }}" alt="{{ $post->title }}">
@@ -21,6 +27,5 @@
                 <p>{{ $post->content }}</p>
             </div>
         </div>
-        @dump($post->categories()->name)
     </div>
 @endsection

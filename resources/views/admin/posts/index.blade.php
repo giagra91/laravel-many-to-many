@@ -4,6 +4,9 @@
 <div class="container-fluid w-75 mx-auto">
     <div>
         <a href="{{route("admin.posts.create")}}" class="btn btn-primary">Aggiungi post</a>
+        @php
+            echo Auth::user()->id
+        @endphp
     </div>
     <table class="table table-striped table-hover">
         <thead>
@@ -11,6 +14,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Created</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -23,10 +27,19 @@
                         </a>
                     </td>
                     <td>
-                        {{ $post->author }}
+                        {{ $post->user_id }}
                     </td>
                     <td>
                         {{ $post->created_at }}
+                    </td>
+                    <td class="d-flex">
+                        <a href="{{route("admin.posts.edit", $post)}}" class="btn btn-success btn-sm me-2">Edit</a>
+                        <form action="{{route("admin.posts.destroy", $post)}}" method="post">
+                        @csrf
+                        @method("DELETE")
+
+                        <button type="submit" class="btn btn-warning btn-sm ">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @empty

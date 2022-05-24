@@ -4,10 +4,12 @@
 <div class="container-fluid w-75 mx-auto">
     <div>
         <a href="{{route("admin.posts.create")}}" class="btn btn-primary">Aggiungi post</a>
-        @php
-            echo Auth::user()->id
-        @endphp
     </div>
+    @if (session("deleted-message"))
+        <div class="alert alert-warning">
+            {{ session("deleted-message") }}
+        </div>
+    @endif
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -34,7 +36,9 @@
                     </td>
                     <td class="d-flex">
                         <a href="{{route("admin.posts.edit", $post)}}" class="btn btn-success btn-sm me-2">Edit</a>
-                        <form action="{{route("admin.posts.destroy", $post)}}" method="post">
+                        <form class="form-destroyer" 
+                        action="{{route("admin.posts.destroy", $post)}}" 
+                        post-title="{{ $post->title }}" method="post">
                         @csrf
                         @method("DELETE")
 
@@ -50,4 +54,20 @@
         </tbody>
     </table>
 </div>
+@endsection
+
+@section('footer-scripts')
+    <script defer>
+        const deleteForms = document.querySelectorAll(".form-destroyer");
+        console.log(deleteForms);
+        deleteForms.forEach(singleForm => {
+            singleForm.addEventListener("submit", function(event){
+                event.preventDefault(); // Blocco l'invio del form
+                userConfirmation = window.confirm(`Vuoi davvero cancellare il post ${this.getAttribute(`post-title`)}?`);
+                if(userConfirmation){
+                    this.submit();
+                }
+            });
+        });
+    </script>
 @endsection

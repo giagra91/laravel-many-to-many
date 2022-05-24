@@ -21,7 +21,7 @@ class PostController extends Controller
     public function index()
     {
         // $posts = Post::all();
-        $posts = Post::where("user_id", Auth::user()->id);
+        $posts = Post::where("user_id", Auth::user()->id)->get();
         return view('admin.posts.index', compact("posts"));
     }
 
@@ -106,11 +106,13 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route("admin.posts.index")->with("deleted.message", "$post->title è stato cancellato con successo");
     }
 }

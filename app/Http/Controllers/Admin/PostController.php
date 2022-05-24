@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 
 class PostController extends Controller
@@ -29,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.posts.create");
     }
 
     /**
@@ -40,7 +41,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categories = Category::all();
+        $data = $request->all();
+        $newPost = new Post();
+        $newPost->user_id = Auth::user()->id;
+        $newPost->title = $data["title"];
+        $newPost->author = Auth::user()->name;
+        $newPost->content = $data["content"];
+        $newPost->image_url = $data["image_url"];
+        $newPost->slug = Str::slug($data["title"], "-");
+        $newPost->save();
+
+        return redirect()->route("admin.posts.show", compact("newPost", "categories"));
+
     }
 
     /**
@@ -58,24 +71,34 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view("admin.posts.edit", compact("post"));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $categories = Category::all();
+        $data = $request->all();
+        $post->user_id = Auth::user()->id;
+        $post->title = $data["title"];
+        $post->author = Auth::user()->name;
+        $post->content = $data["content"];
+        $post->image_url = $data["image_url"];
+        $post->slug = Str::slug($data["title"], "-");
+        $post->save();
+
+        return redirect()->route("admin.posts.show", compact("post", "categories"));
     }
 
     /**

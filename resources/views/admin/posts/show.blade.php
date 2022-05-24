@@ -26,6 +26,9 @@
             <div class="col-12 p-2">
                 <p>{{ $post->content }}</p>
             </div>
+            <div class="col-12">
+                <a href="{{route("admin.posts.edit", $post)}}" class="btn btn-primary">Modifica post</a>
+            </div>
         </div>
     </div>
 @endsection

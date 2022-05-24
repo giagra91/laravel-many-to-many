@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container-fluid w-75 mx-auto">
+    <div>
+        <a href="{{route("admin.posts.create")}}" class="btn btn-primary">Aggiungi post</a>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>

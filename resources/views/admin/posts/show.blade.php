@@ -20,11 +20,13 @@
                     @endforeach
                 </h3>
             </div>
-            <div class="col-12 mb-2">
+            <div class="col-6 mb-2">
                 <img class="w-100" src="{{ $post->image_url }}" alt="{{ $post->title }}">
             </div>
-            <div class="col-12 p-2">
+            <div class="col-6 p-2">
                 <p>{{ $post->content }}</p>
+                <a href="{{route("admin.posts.edit", $post)}}" class="btn btn-primary">Modifica post</a>
+
             </div>
             <div class="col-12">
                 <a href="{{route("admin.posts.edit", $post)}}" class="btn btn-primary">Modifica post</a>

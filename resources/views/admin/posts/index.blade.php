@@ -34,7 +34,7 @@
                         </a>
                     </td>
                     <td>
-                        {{ $post->user_id }}
+                        {{ $post->user->name }}
                     </td>
                     <td>
                         {{ $post->created_at }}

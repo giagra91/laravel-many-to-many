@@ -14,7 +14,7 @@
                 </div>
                 <div class="d-flex flex-wrap py-2">
                     @foreach ($categories as $category)
-                    <div class="form-check me-2">
+                    <div class="form-check me-5">
                         <input class="form-check-input" type="checkbox" name="category[]" value="{{$category->id}}"
                         {{ $post->categories->contains($category) ? "checked" : "" }}>
                         <label class="form-check-label" for="{{$category->name}}">

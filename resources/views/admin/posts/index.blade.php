@@ -5,6 +5,11 @@
     <div>
         <a href="{{route("admin.posts.create")}}" class="btn btn-primary">Aggiungi post</a>
     </div>
+    @if (session("created-message"))
+        <div class="alert alert-success">
+            {{ session("created-message") }}
+        </div>
+    @endif
     @if (session("deleted-message"))
         <div class="alert alert-warning">
             {{ session("deleted-message") }}

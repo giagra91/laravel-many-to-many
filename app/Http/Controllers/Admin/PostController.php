@@ -32,7 +32,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("admin.posts.create");
+        $categories = Category::all();
+        return view("admin.posts.create", compact("categories"));
     }
 
     /**
@@ -43,7 +44,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $categories = Category::all();
         $data = $request->all();
         $newPost = new Post();
         $newPost->user_id = Auth::user()->id;
@@ -53,7 +53,9 @@ class PostController extends Controller
         $newPost->slug = Str::slug($data["title"], "-");
         $newPost->save();
 
-        return redirect()->route("admin.posts.show", compact("newPost", "categories"));
+        $newPost->categories()->sync($data["category"]);
+
+        return redirect()->route("admin.posts.index")->with("created-message", "$newPost->title è stato creato con successo");
 
     }
 

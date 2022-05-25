@@ -21,7 +21,7 @@
                 </h3>
             </div>
             <div class="col-12 mb-2">
-                <img src="{{ $post->image_url }}" alt="{{ $post->title }}">
+                <img class="w-100" src="{{ $post->image_url }}" alt="{{ $post->title }}">
             </div>
             <div class="col-12 p-2">
                 <p>{{ $post->content }}</p>

@@ -82,4 +82,8 @@ class CategoryController extends Controller
     {
         //
     }
+
+    public function posts(){
+        return $this->belongsToMany("App\Models\Post");
+    }
 }

@@ -12,6 +12,17 @@
                     <span class="input-group-text">Title</span>
                     <input type="text" class="form-control" name="title" value="{{$post->title}}">
                 </div>
+                <div class="d-flex flex-wrap py-2">
+                    @foreach ($categories as $category)
+                    <div class="form-check me-2">
+                        <input class="form-check-input" type="checkbox" name="category[]" value="{{$category->id}}"
+                        {{ $post->categories->contains($category) ? "checked" : "" }}>
+                        <label class="form-check-label" for="{{$category->name}}">
+                            {{ $category->name }}    
+                        </label>
+                    </div>
+                    @endforeach
+                </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Content</span>
                     <input type="text" class="form-control" name="content" value="{{$post->content}}">

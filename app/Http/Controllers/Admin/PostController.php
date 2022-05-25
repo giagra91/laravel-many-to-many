@@ -48,7 +48,6 @@ class PostController extends Controller
         $newPost = new Post();
         $newPost->user_id = Auth::user()->id;
         $newPost->title = $data["title"];
-        $newPost->author = Auth::user()->name;
         $newPost->content = $data["content"];
         $newPost->image_url = $data["image_url"];
         $newPost->slug = Str::slug($data["title"], "-");
@@ -78,7 +77,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view("admin.posts.edit", compact("post"));
+        $categories = Category::all();
+        return view("admin.posts.edit", compact("post", "categories"));
     }
 
     /**
@@ -90,17 +90,16 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $categories = Category::all();
         $data = $request->all();
         $post->user_id = Auth::user()->id;
         $post->title = $data["title"];
-        $post->author = Auth::user()->name;
+        $post->categories()->sync($data["category"]);
         $post->content = $data["content"];
         $post->image_url = $data["image_url"];
         $post->slug = Str::slug($data["title"], "-");
         $post->save();
 
-        return redirect()->route("admin.posts.show", compact("post", "categories"));
+        return redirect()->route("admin.posts.show", compact("post"));
     }
 
     /**
@@ -114,5 +113,9 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route("admin.posts.index")->with("deleted.message", "$post->title è stato cancellato con successo");
+    }
+
+    public function categories(){
+        return $this->belongsToMany("App\Models\Category");
     }
 }

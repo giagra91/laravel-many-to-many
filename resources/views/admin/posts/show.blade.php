@@ -8,7 +8,7 @@
                     {{ $post->title }}
                 </h1>
                 <h3>
-                    {{ $post->author }}
+                    {{ $post->user->name }}
                 </h3>
                 <h3>
                     {{ $post->created_at }}

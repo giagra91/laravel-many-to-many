@@ -21,6 +21,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Created</th>
+                <th>Categories</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,6 +39,11 @@
                     </td>
                     <td>
                         {{ $post->created_at }}
+                    </td>
+                    <td>
+                        @foreach ($post->categories as $category)
+                            <span class="badge rounded-pill px-3 py-2" style="background-color: {{$category->color}}">{{$category->name}}</span>
+                        @endforeach
                     </td>
                     <td class="d-flex">
                         <a href="{{route("admin.posts.edit", $post)}}" class="btn btn-success btn-sm me-2">Edit</a>

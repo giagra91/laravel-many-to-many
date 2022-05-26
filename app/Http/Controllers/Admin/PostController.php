@@ -114,7 +114,7 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect()->route("admin.posts.index")->with("deleted.message", "$post->title è stato cancellato con successo");
+        return redirect()->route("admin.posts.index")->with("deleted-message", "$post->title è stato cancellato con successo");
     }
 
     public function categories(){
